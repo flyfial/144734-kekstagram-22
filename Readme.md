@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Anastasiya Matsuk](https://up.htmlacademy.ru/javascript/22/user/144734).
-* Наставник: [Белик Павел]
+* Наставник: [Белик Павел](https://htmlacademy.ru/profile/id84572).
 
 ---
 
