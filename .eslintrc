@@ -1,5 +1,8 @@
 root: true
 
+rules:
+  no-console: "off"
+
 parserOptions:
   ecmaVersion: 2018
   sourceType: "module"
