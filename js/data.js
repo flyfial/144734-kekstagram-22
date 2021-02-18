@@ -8,6 +8,13 @@ const MESSAGES = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 
+const DESCRIPTIONS = [
+  'Люблю этот снимок...',
+  'Просто оставлю это здесь. На память <3',
+  'Я и не знала, что умею так фотографировать!!',
+  'Еле вытянула цвета кривыми. Но вроде неплохо ^_^',
+];
+
 const SIMILAR_PHOTO_DESCRIPTION_COUNT = 25;
 
-export {NAMES, MESSAGES, SIMILAR_PHOTO_DESCRIPTION_COUNT};
+export {NAMES, MESSAGES, SIMILAR_PHOTO_DESCRIPTION_COUNT, DESCRIPTIONS};
