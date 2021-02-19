@@ -1,4 +1,4 @@
-import {NAMES, MESSAGES, SIMILAR_PHOTO_DESCRIPTION_COUNT} from './data.js';
+import {NAMES, MESSAGES, DESCRIPTIONS, SIMILAR_PHOTO_DESCRIPTION_COUNT} from './data.js';
 
 // Случайное целое число из переданного диапазона включительно (Источник: https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
 const getRandomInteger = function (min, max) {
@@ -35,7 +35,7 @@ const getPhotoDescription = (_, index) => {
   return {
     id: index,
     url: 'photos/' + getRandomInteger(1, 25) + '.jpg',
-    description: 'Моя самая любимая фотография',
+    description: getRandomArrayElement(DESCRIPTIONS),
     likes: getRandomInteger(15, 200),
     comments: getRandomArray(1, 3).map(() => ( {
       id: index + getRandomInteger(26, 51),
@@ -53,4 +53,43 @@ const getPhotoDescription = (_, index) => {
 const similarPhotoDescriptions = new Array(SIMILAR_PHOTO_DESCRIPTION_COUNT).fill(null).map(getPhotoDescription);
 console.log(similarPhotoDescriptions);
 
-export {getRandomInteger, getLineLength, getRandomArrayElement, getRandomArray, getPhotoDescription, similarPhotoDescriptions};
+const isEscEvent = (evt) => {
+  return evt.key === ('Escape' || 'Esc');
+};
+
+const isEnterEvent = (evt) => {
+  return evt.key === 'Enter';
+};
+
+const commentList = document.querySelector('.social__comments');
+const commentField = document.querySelector('.social__footer-text');
+const commentBtn = document.querySelector('.social__footer-btn');
+
+commentBtn.onclick = function (evt) {
+  evt.preventDefault();
+
+  const newComment = document.createElement('li');
+  newComment.classList.add('social__comment');
+
+  const newCommentImg = document.createElement('img');
+  newCommentImg.classList.add('social__picture');
+  newCommentImg.src = document.querySelector('.big-picture').querySelector('.social__footer').querySelector('.social__picture').src;
+  newCommentImg.alt = 'имя комментатора';
+  newCommentImg.width = 35;
+  newCommentImg.height = 35;
+  newComment.appendChild(newCommentImg);
+
+  const newCommentText = document.createElement('p');
+  newCommentText.classList.add('social__text');
+  newComment.appendChild(newCommentText);
+  newCommentText.textContent = commentField.value;
+
+  if (commentField.value === '') {
+    alert('Комментарии не могут быть пустыми – напишите что-нибудь');
+  } else {
+    commentField.value = '';
+    commentList.append(newComment);
+  }
+};
+
+export {getRandomInteger, getLineLength, getRandomArrayElement, getRandomArray, getPhotoDescription, similarPhotoDescriptions, isEnterEvent, isEscEvent};
