@@ -5,7 +5,7 @@ const effectSlider = document.querySelector('.effect-level');
 const effects = document.querySelector('.img-upload__effects');
 const effectValueLevel = document.querySelector('.effect-level__value');
 
-const effectChangeHandler = function (evt) {
+const effectChangeHandler = (evt) => {
   const evtParent = evt.target.closest('ul > li');
   const filterEffect = evtParent.querySelector('span');
 
@@ -33,13 +33,13 @@ noUiSlider.create(effectSlider, {
   step: 0.1,
   connect: 'lower',
   format: {
-    to: function (value) {
+    to: (value) => {
       if (Number.isInteger(value)) {
         return value.toFixed(0);
       }
       return value.toFixed(1);
     },
-    from: function (value) {
+    from: (value) => {
       return parseFloat(value);
     },
   },

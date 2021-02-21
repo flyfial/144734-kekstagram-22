@@ -7,14 +7,6 @@ const bigPicture = document.querySelector('.big-picture');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 
 pictures.forEach ((picture) => {
-  picture.addEventListener('click', () => {
-    showBigPicture();
-  });
-
-  bigPictureCancel.addEventListener('click', () => {
-    hideBigPicture();
-  });
-
   const onModalEscKeydown = (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
@@ -31,10 +23,10 @@ pictures.forEach ((picture) => {
     });
 
     bigPicture.querySelector('img').src = pictureData.url;
-    bigPicture.querySelector('.likes-count').textContent = pictureData.likes;
+    bigPicture.querySelector('.likes-count').textContent = picture.querySelector('.picture__likes').textContent;
     bigPicture.querySelector('.social__comment-count').classList.add('hidden');
     bigPicture.querySelector('.comments-loader').classList.add('hidden');
-    bigPicture.querySelector('.comments-count').textContent = pictureData.comments.length;
+    bigPicture.querySelector('.comments-count').textContent = picture.querySelector('.picture__comments').textContent;
     bigPicture.querySelector('.social__caption').textContent = pictureData.description;
 
     document.addEventListener('keydown', onModalEscKeydown);
@@ -46,4 +38,8 @@ pictures.forEach ((picture) => {
 
     document.removeEventListener('keydown', onModalEscKeydown);
   };
+
+  picture.addEventListener('click', showBigPicture);
+
+  bigPictureCancel.addEventListener('click', hideBigPicture);
 });
