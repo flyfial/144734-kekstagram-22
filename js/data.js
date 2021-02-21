@@ -1,3 +1,5 @@
+const body = document.querySelector('body');
+
 const NAMES = ['Рэйчел Грин', 'Моника Геллер', 'Фиби Буффе', 'Джоуи Триббиани', 'Чендлер Бинг', 'Елена Гилберт', 'Кэтрин Пирс', 'Стефан Сальваторе', 'Дэймон Сальваторе', 'Джереми Гилберт', 'Дженна Соммерс', 'Бонни Беннет', 'Кэролайн Форбс', 'Мэтт Донован', 'Викки Донован', 'Тайлер Локвуд', 'Аларик Зальцман', 'Клаус Майклсон', 'Энзо Сент-Джон', 'Элайджа Майклсон', 'Коул Майклсон', 'Ребекка Майклсон', 'Финн Майклсон', 'Лив Паркер', 'Люк Паркер'];
 
 const MESSAGES = [
@@ -17,4 +19,4 @@ const DESCRIPTIONS = [
 
 const SIMILAR_PHOTO_DESCRIPTION_COUNT = 25;
 
-export {NAMES, MESSAGES, SIMILAR_PHOTO_DESCRIPTION_COUNT, DESCRIPTIONS};
+export {body, NAMES, MESSAGES, SIMILAR_PHOTO_DESCRIPTION_COUNT, DESCRIPTIONS};

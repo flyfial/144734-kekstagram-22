@@ -1,14 +1,14 @@
 import {userPictures} from './pictures.js';
 import {isEscEvent} from './util.js';
+import {body} from './data.js';
 
 const pictures = document.querySelectorAll('.picture');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
-const body = document.querySelector('body');
 
 pictures.forEach ((picture) => {
   picture.addEventListener('click', () => {
-    showBigPicture()
+    showBigPicture();
   });
 
   bigPictureCancel.addEventListener('click', () => {
@@ -31,10 +31,10 @@ pictures.forEach ((picture) => {
     });
 
     bigPicture.querySelector('img').src = pictureData.url;
-    bigPicture.querySelector('.likes-count').textContent = picture.querySelector('.picture__likes').textContent;
+    bigPicture.querySelector('.likes-count').textContent = pictureData.likes;
     bigPicture.querySelector('.social__comment-count').classList.add('hidden');
     bigPicture.querySelector('.comments-loader').classList.add('hidden');
-    bigPicture.querySelector('.comments-count').textContent = picture.querySelector('.picture__comments').textContent;
+    bigPicture.querySelector('.comments-count').textContent = pictureData.comments.length;
     bigPicture.querySelector('.social__caption').textContent = pictureData.description;
 
     document.addEventListener('keydown', onModalEscKeydown);
