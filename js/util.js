@@ -1,7 +1,7 @@
 import {NAMES, MESSAGES, DESCRIPTIONS, SIMILAR_PHOTO_DESCRIPTION_COUNT} from './data.js';
 
 // Случайное целое число из переданного диапазона включительно (Источник: https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
-const getRandomInteger = function (min, max) {
+const getRandomInteger = (min, max) => {
   if (min < 0) {
     throw new Error('Отрицательные значения запрещены');
   }
@@ -16,7 +16,7 @@ const getRandomInteger = function (min, max) {
 };
 
 // Проверка максимальной длины строки
-const getLineLength = function (line, maxLength) {
+const getLineLength = (line, maxLength) => {
   return (line.length <= maxLength) ? true : false;
 };
 
@@ -26,7 +26,7 @@ const getRandomArrayElement = (elements) => {
 };
 
 // Случайный массив в диапазоне вкл
-const getRandomArray = function(min, max) {
+const getRandomArray = (min, max) => {
   return new Array(getRandomInteger(min, max)).fill(null);
 };
 
@@ -41,7 +41,7 @@ const getPhotoDescription = (_, index) => {
       id: index + getRandomInteger(26, 51),
       avatar: 'img/avatar-' + getRandomInteger(1, 6) + '.svg',
       message: MESSAGES
-        .sort(function() { return .5 - Math.random() })
+        .sort(() => { return .5 - Math.random() })
         .slice(0, getRandomInteger(1, 2))
         .join(' '),
       name: getRandomArrayElement(NAMES),
@@ -65,7 +65,7 @@ const commentList = document.querySelector('.social__comments');
 const commentField = document.querySelector('.social__footer-text');
 const commentBtn = document.querySelector('.social__footer-btn');
 
-commentBtn.onclick = function (evt) {
+commentBtn.onclick = (evt) => {
   evt.preventDefault();
 
   const newComment = document.createElement('li');

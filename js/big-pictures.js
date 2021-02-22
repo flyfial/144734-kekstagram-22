@@ -1,20 +1,12 @@
 import {userPictures} from './pictures.js';
 import {isEscEvent} from './util.js';
+import {body} from './data.js';
 
 const pictures = document.querySelectorAll('.picture');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
-const body = document.querySelector('body');
 
 pictures.forEach ((picture) => {
-  picture.addEventListener('click', () => {
-    showBigPicture()
-  });
-
-  bigPictureCancel.addEventListener('click', () => {
-    hideBigPicture();
-  });
-
   const onModalEscKeydown = (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
@@ -46,4 +38,8 @@ pictures.forEach ((picture) => {
 
     document.removeEventListener('keydown', onModalEscKeydown);
   };
+
+  picture.addEventListener('click', showBigPicture);
+
+  bigPictureCancel.addEventListener('click', hideBigPicture);
 });
