@@ -4,3 +4,4 @@ import './big-pictures.js';
 import './picture-upload.js';
 import './scale.js';
 import './filters.js';
+import './img-upload-form.js';

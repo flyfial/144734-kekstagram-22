@@ -47,7 +47,6 @@ noUiSlider.create(effectSlider, {
 
 effectSlider.noUiSlider.on('update', (_, handle, unencoded) => {
   effectValueLevel.value = unencoded[handle];
-  console.log(effectValueLevel.value);
 
   if (imgPreview.className === 'effects__preview--chrome') {
     imgPreview.style.filter = 'grayscale(' + effectValueLevel.value +')';
