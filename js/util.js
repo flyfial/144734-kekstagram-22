@@ -51,7 +51,6 @@ const getPhotoDescription = (_, index) => {
 
 // Массив из описаний фото
 const similarPhotoDescriptions = new Array(SIMILAR_PHOTO_DESCRIPTION_COUNT).fill(null).map(getPhotoDescription);
-console.log(similarPhotoDescriptions);
 
 const isEscEvent = (evt) => {
   return evt.key === ('Escape' || 'Esc');
@@ -92,4 +91,74 @@ commentBtn.onclick = (evt) => {
   }
 };
 
-export {getRandomInteger, getLineLength, getRandomArrayElement, getRandomArray, getPhotoDescription, similarPhotoDescriptions, isEnterEvent, isEscEvent};
+const main = document.querySelector('main');
+const alertSuccessTemplate = document.querySelector('#success').content.querySelector('.success');
+const alertErrorTemplate = document.querySelector('#error').content.querySelector('.error');
+
+const onSuccessMessageEscKeydown = (evt) => {
+  if (isEscEvent(evt)) {
+    evt.preventDefault();
+    main.querySelector('.success').remove();
+    document.removeEventListener('keydown', onSuccessMessageEscKeydown);
+  }
+};
+
+const onErrorMessageEscKeydown = (evt) => {
+  if (isEscEvent(evt)) {
+    evt.preventDefault();
+    main.querySelector('.error').remove();
+    document.removeEventListener('keydown', onErrorMessageEscKeydown);
+  }
+};
+
+const onSuccessMessageMouseUp = (evt) => {
+  if (!main.querySelector('.success__inner').contains(evt.target)) {
+    main.querySelector('.success').remove();
+    document.removeEventListener('mouseup', onSuccessMessageMouseUp);
+  }
+};
+
+const onErrorMessageMouseUp = (evt) => {
+  if (!main.querySelector('.error__inner').contains(evt.target)) {
+    main.querySelector('.error').remove();
+    document.removeEventListener('mouseup', onErrorMessageMouseUp);
+  }
+};
+
+const hideSuccessMessage = () => {
+  main.querySelector('.success').remove();
+};
+
+const hideErrorMessage = () => {
+  main.querySelector('.error').remove();
+};
+
+const showSuccessMessage = () => {
+  const alertBox = document.createDocumentFragment();
+  const successSection = alertSuccessTemplate.cloneNode(true);
+  alertBox.appendChild(successSection);
+  main.appendChild(alertBox);
+
+  const successButton = main.querySelector('.success__button');
+
+  successButton.addEventListener('click', hideSuccessMessage)
+
+  document.addEventListener('keydown', onSuccessMessageEscKeydown);
+  document.addEventListener('mouseup', onSuccessMessageMouseUp);
+}
+
+const showErrorMessage = () => {
+  const alertBox = document.createDocumentFragment();
+  const errorSection = alertErrorTemplate.cloneNode(true);
+  alertBox.appendChild(errorSection);
+  main.appendChild(alertBox);
+
+  const errorButton = main.querySelector('.error__button');
+
+  errorButton.addEventListener('click', hideErrorMessage)
+
+  document.addEventListener('keydown', onErrorMessageEscKeydown);
+  document.addEventListener('mouseup', onErrorMessageMouseUp);
+}
+
+export {showSuccessMessage, showErrorMessage, getRandomInteger, getLineLength, getRandomArrayElement, getRandomArray, getPhotoDescription, similarPhotoDescriptions, isEnterEvent, isEscEvent};
