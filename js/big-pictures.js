@@ -1,46 +1,47 @@
-import {picturesData} from './pictures.js';
 import {isEscEvent} from './util.js';
 import {body} from './data.js';
 
-const processPictures = () => {
-  const pictures = document.querySelectorAll('.picture');
-  const bigPicture = document.querySelector('.big-picture');
-  const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
+const bigPicture = document.querySelector('.big-picture');
+const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 
-  pictures.forEach ((picture) => {
-    const onModalEscKeydown = (evt) => {
-      if (isEscEvent(evt)) {
-        evt.preventDefault();
-        hideBigPicture();
-      }
-    };
+const hideBigPicture = () => {
+  bigPicture.classList.add('hidden');
+  body.classList.remove('modal-open');
 
-    const showBigPicture = () => {
-      bigPicture.classList.remove('hidden');
-      body.classList.add('modal-open');
+  document.removeEventListener('keydown', onModalEscKeydown);
+};
 
-      const pictureInfo = picturesData.find((photo) => {
-        return window.location.origin + '/' + photo.url === picture.querySelector('img').src;
-      });
+const onModalEscKeydown = (evt) => {
+  if (isEscEvent(evt)) {
+    evt.preventDefault();
+    hideBigPicture();
+  }
+};
 
-      bigPicture.querySelector('img').src = pictureInfo.url;
-      bigPicture.querySelector('.likes-count').textContent = picture.querySelector('.picture__likes').textContent;
-      bigPicture.querySelector('.social__comment-count').classList.add('hidden');
-      bigPicture.querySelector('.comments-loader').classList.add('hidden');
-      bigPicture.querySelector('.comments-count').textContent = picture.querySelector('.picture__comments').textContent;
-      bigPicture.querySelector('.social__caption').textContent = pictureInfo.description;
+const showBigPicture = (pictureNode, picture) => () => {
+  bigPicture.classList.remove('hidden');
+  body.classList.add('modal-open');
 
-      document.addEventListener('keydown', onModalEscKeydown);
-    };
+  bigPicture.querySelector('img').src = picture.url;
+  bigPicture.querySelector('.likes-count').textContent = pictureNode.querySelector('.picture__likes').textContent;
+  bigPicture.querySelector('.social__comment-count').classList.add('hidden');
+  bigPicture.querySelector('.comments-loader').classList.add('hidden');
+  bigPicture.querySelector('.comments-count').textContent = pictureNode.querySelector('.picture__comments').textContent;
+  bigPicture.querySelector('.social__caption').textContent = picture.description;
 
-    const hideBigPicture = () => {
-      bigPicture.classList.add('hidden');
-      body.classList.remove('modal-open');
+  document.addEventListener('keydown', onModalEscKeydown);
+};
 
-      document.removeEventListener('keydown', onModalEscKeydown);
-    };
+const processPictures = (picturesList) => {
+  const pictureNodes = document.querySelectorAll('.picture');
 
-    picture.addEventListener('click', showBigPicture);
+  console.log(picturesList);
+
+  pictureNodes.forEach ((pictureNode) => {
+    const picture = picturesList.find((photo) => {
+      return window.location.origin + '/' + photo.url === pictureNode.querySelector('img').src;
+    });
+    pictureNode.addEventListener('click', showBigPicture(pictureNode, picture));
 
     bigPictureCancel.addEventListener('click', hideBigPicture);
   });

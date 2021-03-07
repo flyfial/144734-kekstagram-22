@@ -1,24 +1,39 @@
+/* global _:readonly */
 import './util.js';
-import './pictures.js';
 import './big-pictures.js';
 import {hideUploadForm} from './picture-upload.js';
 import './scale.js';
 import './filters.js';
 import {setUserFormSubmit} from './img-upload-form.js';
 import {displayGallery} from './pictures.js';
+import {getGallery} from './api.js';
+import {setDefaultClick, setRandomClick, setDiscussedClick} from './filter-handlers.js';
 
-fetch('https://22.javascript.pages.academy/kekstagram/data')
-  .then((response) => {
-    if (response.ok) {
-      return response.json();
-    }
-    throw new Error (`${response.status} ${response.statusText}`);
-  })
-  .then((pictures) => {
-    displayGallery(pictures);
-  })
-  .catch((err) => {
-    alert ('Что-то пошло не так. Вот что считает сервер: ' + err);
-  });
+const RERENDER_DELAY = 500;
+
+getGallery((pictures) => {
+  displayGallery(pictures);
+  setDefaultClick(_.debounce(
+    () => displayGallery(pictures),
+    RERENDER_DELAY,
+  ));
+  setRandomClick(_.debounce(
+    () => {
+      displayGallery(pictures
+        .slice()
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 10));
+    },
+    RERENDER_DELAY,
+  ));
+  setDiscussedClick(_.debounce(
+    () => {
+      displayGallery(pictures
+        .slice()
+        .sort((a,b) => b.comments.length - a.comments.length));
+    },
+    RERENDER_DELAY,
+  ));
+});
 
 setUserFormSubmit(hideUploadForm);
