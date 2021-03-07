@@ -14,8 +14,7 @@ commentInput.addEventListener('keydown', (evt) => {
 });
 
 hashtagInput.addEventListener('input', () => {
-  const hashtagArray = hashtagInput.value.split(' ');
-  hashtagInput.value.toLowerCase();
+  const hashtagArray = hashtagInput.value.toLowerCase().split(' ');
 
   hashtagArray.forEach((hashtag, index) => {
     const valueLength = hashtag.length;
