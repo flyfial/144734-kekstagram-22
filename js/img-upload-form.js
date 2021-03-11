@@ -1,5 +1,6 @@
 import {showSuccessMessage, showErrorMessage} from './util.js';
-import {hideUploadForm} from './picture-upload.js';
+import {hideUploadForm} from './process-img-upload-form.js';
+import {testStartWith, testShortValueLength, testValidity, testLongValueLength, testUniqueName, testHashtagQuantity, testCommentLength, highlightErrorBackground, whitenBackground} from './form-validation.js';
 
 const yourImageUploadForm = document.querySelector('.img-upload__form');
 const hashtagInput = document.querySelector('.text__hashtags');
@@ -17,40 +18,40 @@ hashtagInput.addEventListener('input', () => {
   const hashtagArray = hashtagInput.value.toLowerCase().split(' ');
 
   hashtagArray.forEach((hashtag, index) => {
-    const valueLength = hashtag.length;
-    const regex = /^[A-Za-z0-9]+$/;
-    const isValid = regex.test(hashtag.split('#')[1]);
+    let error = testStartWith(hashtag)
+    || testShortValueLength(hashtag)
+    || testValidity(hashtag)
+    || testLongValueLength(hashtag)
+    || testUniqueName(hashtagArray, index)
+    || testHashtagQuantity(hashtagArray);
 
-    if (!hashtag.startsWith('#')) {
-      hashtagInput.style.backgroundColor = '#FFDBDB';
-      hashtagInput.setCustomValidity('хэш-тег должен начинаться с символа # (решётка)');
-    } else if (valueLength === 1) {
-      hashtagInput.style.backgroundColor = '#FFDBDB';
-      hashtagInput.setCustomValidity('хеш-тег не может состоять только из одной решётки');
-    } else if (!isValid) {
-      hashtagInput.style.backgroundColor = '#FFDBDB';
-      hashtagInput.setCustomValidity('хэш-тэг не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.');
-    } else if (valueLength > 20) {
-      hashtagInput.style.backgroundColor = '#FFDBDB';
-      hashtagInput.setCustomValidity('максимальная длина одного хэш-тега 20 символов, включая решётку');
-    } else if (hashtagArray[index - 1] === hashtagArray[index]) {
-      hashtagInput.style.backgroundColor = '#FFDBDB';
-      hashtagInput.setCustomValidity('один и тот же хэш-тег не может быть использован дважды');
-    } else if (hashtagArray.length > 5) {
-      hashtagInput.style.backgroundColor = '#FFDBDB';
-      hashtagInput.setCustomValidity('нельзя указать больше пяти хэш-тегов');
+    if (error) {
+      highlightErrorBackground(hashtagInput);
+      hashtagInput.setCustomValidity(error);
     } else {
-      hashtagInput.style.backgroundColor = 'white';
+      whitenBackground(hashtagInput);
       hashtagInput.setCustomValidity('');
     }
   });
   hashtagInput.reportValidity();
 
   if (hashtagInput.value === '') {
-    hashtagInput.style.backgroundColor = 'white';
+    whitenBackground(hashtagInput);
     hashtagInput.setCustomValidity('');
   }
   hashtagInput.reportValidity();
+});
+
+commentInput.addEventListener('input', () => {
+  let error = testCommentLength(commentInput);
+  if (error) {
+    highlightErrorBackground(commentInput);
+    commentInput.setCustomValidity(error);
+  } else {
+    whitenBackground(commentInput);
+    commentInput.setCustomValidity('');
+  }
+  commentInput.reportValidity();
 });
 
 const setUserFormSubmit = () => {
