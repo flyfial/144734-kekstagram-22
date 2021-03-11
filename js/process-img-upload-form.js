@@ -1,5 +1,4 @@
-import {isEscEvent} from './util.js';
-import {body} from './data.js';
+import {body, isEscEvent} from './util.js';
 import {scaleValue, imgPreview} from './scale.js';
 import {effectSlider} from './filters.js';
 import {commentInput, hashtagInput} from './img-upload-form.js';
