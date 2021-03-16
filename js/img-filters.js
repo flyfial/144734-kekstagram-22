@@ -20,9 +20,7 @@ const effectChangeHandler = (evt) => {
   } else {
     effectSlider.classList.remove('visually-hidden');
   }
-}
-
-effects.addEventListener('change', effectChangeHandler);
+};
 
 noUiSlider.create(effectSlider, {
   range: {
@@ -61,7 +59,7 @@ effectSlider.noUiSlider.on('update', (_, handle, unencoded) => {
   }
 });
 
-effects.addEventListener('change', (evt) => {
+const effectChanger = (evt) => {
   if (evt.target.value === 'chrome') {
     effectSlider.noUiSlider.updateOptions({
       range: {
@@ -108,6 +106,6 @@ effects.addEventListener('change', (evt) => {
       step: 0.1,
     });
   }
-});
+};
 
-export {effectSlider};
+export {effects, effectSlider, effectChangeHandler, effectChanger};

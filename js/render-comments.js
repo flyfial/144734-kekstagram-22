@@ -1,3 +1,5 @@
+const commentList = document.querySelector('.social__comments');
+
 const makeElement = (tagName, className, text) => {
   const element = document.createElement(tagName);
   element.classList.add(className);
@@ -23,4 +25,4 @@ const createComment = (comment) => {
   return listComment;
 };
 
-export {createComment};
+export {createComment, commentList};

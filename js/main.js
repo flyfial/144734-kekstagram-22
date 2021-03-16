@@ -1,15 +1,15 @@
 /* global _:readonly */
-import './util.js';
-import './big-pictures.js';
-import {hideUploadForm} from './process-img-upload-form.js';
-import './scale.js';
-import './filters.js';
-import {setUserFormSubmit} from './img-upload-form.js';
-import {displayGallery} from './pictures.js';
 import {getGallery} from './api.js';
-import {setDefaultClick, setRandomClick, setDiscussedClick} from './filter-handlers.js';
+import './big-pictures.js';
+import {hideUploadForm} from './form-process.js';
+import {setUserFormSubmit} from './form-submission.js';
+import {setDefaultClick, setRandomClick, setDiscussedClick} from './gallery-filter-handlers.js';
+import './img-filters.js';
 import './img-preview.js';
+import {displayGallery} from './pictures.js';
 import './render-comments.js';
+import './scale.js';
+import './util.js';
 
 const RERENDER_DELAY = 500;
 

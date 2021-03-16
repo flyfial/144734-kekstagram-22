@@ -1,11 +1,10 @@
-import {body, isEscEvent, commentList} from './util.js';
-import {createComment} from './render-comments.js';
+import {body, isEscEvent} from './util.js';
+import {commentList, createComment} from './render-comments.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 const commentCount = bigPicture.querySelector('.social__comment-count');
 const displayinCountNode = commentCount.querySelector('#displayed-count');
-//const totalCountNode = commentCount.querySelector('.comments-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const DEFAULT_COMMENT_NUMBER = 5;
 let displayingComments = DEFAULT_COMMENT_NUMBER;
@@ -43,6 +42,7 @@ const hideBigPicture = () => {
 
   commentsLoader.removeEventListener('click', showMoreCommentsHandler);
   document.removeEventListener('keydown', onModalEscKeydown);
+  bigPictureCancel.removeEventListener('click', hideBigPicture);
 };
 
 const onModalEscKeydown = (evt) => {
@@ -63,9 +63,10 @@ const showBigPicture = (pictureNode, picture) => () => {
 
   currentPicture = picture;
   showComments();
-  commentsLoader.addEventListener('click', showMoreCommentsHandler);
 
+  commentsLoader.addEventListener('click', showMoreCommentsHandler);
   document.addEventListener('keydown', onModalEscKeydown);
+  bigPictureCancel.addEventListener('click', hideBigPicture);
 };
 
 const processPictures = (picturesList) => {
@@ -77,8 +78,6 @@ const processPictures = (picturesList) => {
     });
 
     pictureNode.addEventListener('click', showBigPicture(pictureNode, picture));
-
-    bigPictureCancel.addEventListener('click', hideBigPicture);
   });
 }
 
