@@ -1,7 +1,7 @@
 import {body, isEscEvent} from './util.js';
 import {scaleValue, imgPreview} from './scale.js';
 import {effects, effectSlider, effectChangeHandler, effectChanger} from './img-filters.js';
-import {commentInput, hashtagInput, testHashtagInput, testCommentInput, whitenBackground} from './form-validation.js';
+import {commentInput, hashtagInput, testHashtagInput, testCommentInput, whitenError} from './form-validation.js';
 import {setUserFormSubmit, submitUserForm} from './form-submission.js';
 
 const uploadFileControl = document.querySelector('#upload-file');
@@ -49,9 +49,9 @@ const hideUploadForm = () => {
   effectOriginalButton.checked = true;
   imgPreview.style.filter = 'none';
   hashtagInput.value = '';
-  whitenBackground(hashtagInput);
+  whitenError(hashtagInput);
   commentInput.value = '';
-  whitenBackground(commentInput);
+  whitenError(commentInput);
   uploadFileControl.value = null;
   document.removeEventListener('keydown', onModalEscKeydown);
   uploadCancel.removeEventListener('click', hideUploadForm);
@@ -64,6 +64,9 @@ const hideUploadForm = () => {
   imageUploadForm.removeEventListener('submit', submitUserForm);
 };
 
-uploadFileControl.addEventListener('change', showUploadForm);
 
-export {uploadFileControl, showUploadForm, hideUploadForm};
+const setUploadFileControl = () => {
+  uploadFileControl.addEventListener('change', showUploadForm);
+};
+
+export {uploadFileControl, showUploadForm, hideUploadForm, setUploadFileControl};

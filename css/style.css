@@ -696,6 +696,15 @@ main {
   border-radius: 5px;
 }
 
+.error__text__hashtags {
+  border-color: #ff0000;
+}
+
+.error__text__hashtags:hover,
+.error__text__hashtags:focus {
+  outline: #ff0000;
+}
+
 .text__description {
   width: 450px;
   height: 100px;

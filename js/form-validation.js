@@ -1,19 +1,16 @@
 const hashtagInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
-let message;
 
 const testStartWith = (hashtag) => {
   if (!hashtag.startsWith('#')) {
-    message = 'хэш-тег должен начинаться с символа # (решётка)';
-    return message;
+    return 'хэш-тег должен начинаться с символа # (решётка)';
   }
   return undefined;
 };
 
 const testShortValueLength = (hashtag) => {
   if (hashtag.length === 1) {
-    message = 'хеш-тег не может состоять только из одной решётки';
-    return message;
+    return 'хеш-тег не может состоять только из одной решётки';
   }
   return undefined;
 };
@@ -22,32 +19,28 @@ const testValidity = (hashtag) => {
   const regex = /^[A-Za-z0-9]+$/;
   const isValid = regex.test(hashtag.split('#')[1]);
   if (!isValid) {
-    message = 'хэш-тэг не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.';
-    return message;
+    return 'хэш-тэг не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.';
   }
   return undefined;
 };
 
 const testLongValueLength = (hashtag) => {
   if (hashtag.length > 20) {
-    message = 'максимальная длина одного хэш-тега 20 символов, включая решётку';
-    return message;
+    return 'максимальная длина одного хэш-тега 20 символов, включая решётку';
   }
   return undefined;
 };
 
 const testUniqueName = (hashtagArray, index) => {
   if (hashtagArray[index - 1] === hashtagArray[index]) {
-    message = 'один и тот же хэш-тег не может быть использован дважды';
-    return message;
+    return 'один и тот же хэш-тег не может быть использован дважды';
   }
   return undefined;
 };
 
 const testHashtagQuantity = (hashtagArray) => {
   if (hashtagArray.length > 5) {
-    message = 'нельзя указать больше пяти хэш-тегов';
-    return message;
+    return 'нельзя указать больше пяти хэш-тегов';
   }
   return undefined;
 };
@@ -59,19 +52,19 @@ const testCommentLength = (commentInput) => {
   return undefined;
 };
 
-const highlightErrorBackground = (element) => {
-  element.style.backgroundColor = '#FFDBDB';
+const highlightError = (element) => {
+  element.classList.add('error__text__hashtags');
 };
 
-const whitenBackground = (element) => {
-  element.style.backgroundColor = 'white';
+const whitenError = (element) => {
+  element.classList.remove('error__text__hashtags');
 };
 
 const testHashtagInput = () => {
   const hashtagArray = hashtagInput.value.toLowerCase().split(' ');
-
+  let message = '';
   let error = hashtagArray.some((hashtag, index) => {
-    return (
+    return message = (
       testStartWith(hashtag)
       || testShortValueLength(hashtag)
       || testValidity(hashtag)
@@ -82,16 +75,16 @@ const testHashtagInput = () => {
   });
 
   if (error) {
-    highlightErrorBackground(hashtagInput);
+    highlightError(hashtagInput);
     hashtagInput.setCustomValidity(message);
   } else {
-    whitenBackground(hashtagInput);
+    whitenError(hashtagInput);
     hashtagInput.setCustomValidity('');
   }
   hashtagInput.reportValidity();
 
   if (hashtagInput.value === '') {
-    whitenBackground(hashtagInput);
+    whitenError(hashtagInput);
     hashtagInput.setCustomValidity('');
   }
   hashtagInput.reportValidity();
@@ -100,13 +93,13 @@ const testHashtagInput = () => {
 const testCommentInput = () => {
   let error = testCommentLength(commentInput);
   if (error) {
-    highlightErrorBackground(commentInput);
+    highlightError(commentInput);
     commentInput.setCustomValidity(error);
   } else {
-    whitenBackground(commentInput);
+    whitenError(commentInput);
     commentInput.setCustomValidity('');
   }
   commentInput.reportValidity();
 };
 
-export {hashtagInput, commentInput, testHashtagInput, testCommentInput, whitenBackground};
+export {hashtagInput, commentInput, testHashtagInput, testCommentInput, whitenError};

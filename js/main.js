@@ -1,8 +1,7 @@
 /* global _:readonly */
 import {getGallery} from './api.js';
 import './big-pictures.js';
-import {hideUploadForm} from './form-process.js';
-import {setUserFormSubmit} from './form-submission.js';
+import {setUploadFileControl} from './form-process.js';
 import {setDefaultClick, setRandomClick, setDiscussedClick} from './gallery-filter-handlers.js';
 import './img-filters.js';
 import './img-preview.js';
@@ -38,4 +37,4 @@ getGallery((pictures) => {
   ));
 });
 
-setUserFormSubmit(hideUploadForm);
+setUploadFileControl();

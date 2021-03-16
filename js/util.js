@@ -12,19 +12,21 @@ const isEnterEvent = (evt) => {
 };
 
 const findSuccessButton = () => {
-  const successButton = main.querySelector('.success__button');
-  return successButton;
+  return main.querySelector('.success__button');
 };
 
 const findErrorButton = () => {
-  const errorButton = main.querySelector('.error__button');
-  return errorButton;
+  return main.querySelector('.error__button');
 };
 
 const hideSuccessMessage = () => {
   body.classList.remove('modal-open');
 
-  findSuccessButton().removeEventListener('click', hideSuccessMessage);
+  const successButton = findSuccessButton();
+  if (successButton) {
+    successButton.removeEventListener('click', hideSuccessMessage);
+  }
+
   document.removeEventListener('keydown', onSuccessMessageEscKeydown);
   document.removeEventListener('mouseup', onSuccessMessageMouseUp);
 
@@ -34,7 +36,11 @@ const hideSuccessMessage = () => {
 const hideErrorMessage = () => {
   body.classList.remove('modal-open');
 
-  findErrorButton().removeEventListener('click', hideErrorMessage);
+  const errorButton = findErrorButton();
+  if (errorButton) {
+    errorButton.removeEventListener('click', hideErrorMessage);
+  }
+
   document.removeEventListener('keydown', onErrorMessageEscKeydown);
   document.removeEventListener('mouseup', onErrorMessageMouseUp);
 
@@ -75,7 +81,11 @@ const showSuccessMessage = () => {
 
   body.classList.add('modal-open');
 
-  findSuccessButton().addEventListener('click', hideSuccessMessage);
+  const successButton = findSuccessButton();
+  if (successButton) {
+    successButton.addEventListener('click', hideSuccessMessage);
+  }
+
   document.addEventListener('keydown', onSuccessMessageEscKeydown);
   document.addEventListener('mouseup', onSuccessMessageMouseUp);
 };
@@ -88,7 +98,11 @@ const showErrorMessage = () => {
 
   body.classList.add('modal-open');
 
-  findErrorButton().addEventListener('click', hideErrorMessage);
+  const errorButton = findErrorButton();
+  if (errorButton) {
+    errorButton.addEventListener('click', hideErrorMessage);
+  }
+
   document.addEventListener('keydown', onErrorMessageEscKeydown);
   document.addEventListener('mouseup', onErrorMessageMouseUp);
 };
