@@ -5,7 +5,7 @@ let message;
 const testStartWith = (hashtag) => {
   if (!hashtag.startsWith('#')) {
     message = 'хэш-тег должен начинаться с символа # (решётка)';
-    return 'хэш-тег должен начинаться с символа # (решётка)';
+    return message;
   }
   return undefined;
 };
@@ -13,7 +13,7 @@ const testStartWith = (hashtag) => {
 const testShortValueLength = (hashtag) => {
   if (hashtag.length === 1) {
     message = 'хеш-тег не может состоять только из одной решётки';
-    return 'хеш-тег не может состоять только из одной решётки';
+    return message;
   }
   return undefined;
 };
@@ -23,7 +23,7 @@ const testValidity = (hashtag) => {
   const isValid = regex.test(hashtag.split('#')[1]);
   if (!isValid) {
     message = 'хэш-тэг не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.';
-    return 'хэш-тэг не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.';
+    return message;
   }
   return undefined;
 };
@@ -31,7 +31,7 @@ const testValidity = (hashtag) => {
 const testLongValueLength = (hashtag) => {
   if (hashtag.length > 20) {
     message = 'максимальная длина одного хэш-тега 20 символов, включая решётку';
-    return 'максимальная длина одного хэш-тега 20 символов, включая решётку';
+    return message;
   }
   return undefined;
 };
@@ -39,7 +39,7 @@ const testLongValueLength = (hashtag) => {
 const testUniqueName = (hashtagArray, index) => {
   if (hashtagArray[index - 1] === hashtagArray[index]) {
     message = 'один и тот же хэш-тег не может быть использован дважды';
-    return 'один и тот же хэш-тег не может быть использован дважды';
+    return message;
   }
   return undefined;
 };
@@ -47,7 +47,7 @@ const testUniqueName = (hashtagArray, index) => {
 const testHashtagQuantity = (hashtagArray) => {
   if (hashtagArray.length > 5) {
     message = 'нельзя указать больше пяти хэш-тегов';
-    return 'нельзя указать больше пяти хэш-тегов';
+    return message;
   }
   return undefined;
 };
