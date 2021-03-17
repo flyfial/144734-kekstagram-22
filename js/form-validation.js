@@ -32,7 +32,7 @@ const testLongValueLength = (hashtag) => {
 };
 
 const testUniqueName = (hashtagArray, index) => {
-  if (hashtagArray[index - 1] === hashtagArray[index]) {
+  if (hashtagArray.indexOf(hashtagArray[index]) != index) {
     return 'один и тот же хэш-тег не может быть использован дважды';
   }
   return undefined;
