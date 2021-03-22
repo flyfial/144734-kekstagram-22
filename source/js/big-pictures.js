@@ -4,7 +4,7 @@ import {commentList, createComment} from './render-comments.js';
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 const commentCount = bigPicture.querySelector('.social__comment-count');
-const displayinCountNode = commentCount.querySelector('#displayed-count');
+const displayingCountNode = commentCount.querySelector('#displayed-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const DEFAULT_COMMENT_NUMBER = 5;
 let displayingComments = DEFAULT_COMMENT_NUMBER;
@@ -18,10 +18,10 @@ const showMoreCommentsHandler = () => {
 const showComments = (start = 0) => {
   if (currentPicture.comments.length <= displayingComments) {
     commentsLoader.classList.add('hidden');
-    displayinCountNode.textContent = currentPicture.comments.length;
+    displayingCountNode.textContent = currentPicture.comments.length;
   } else {
     commentsLoader.classList.remove('hidden');
-    displayinCountNode.textContent = displayingComments;
+    displayingCountNode.textContent = displayingComments;
   }
 
   currentPicture.comments

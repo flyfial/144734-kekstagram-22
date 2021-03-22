@@ -1,5 +1,5 @@
 import {body, isEscEvent} from './util.js';
-import {scaleValue, imgPreview} from './scale.js';
+import {scaleValue, imgPreview, scaleControlSmaller, scaleSmaller, scaleControlBigger, scaleBigger} from './scale.js';
 import {effects, effectSlider, effectChangeHandler, effectChanger} from './img-filters.js';
 import {commentInput, hashtagInput, testHashtagInput, testCommentInput, whitenError} from './form-validation.js';
 import {setUserFormSubmit, submitUserForm} from './form-submission.js';
@@ -31,6 +31,8 @@ const showUploadForm = () => {
   effectSlider.classList.add('visually-hidden');
   document.addEventListener('keydown', onModalEscKeydown);
   uploadCancel.addEventListener('click', hideUploadForm);
+  scaleControlSmaller.addEventListener('click', scaleSmaller);
+  scaleControlBigger.addEventListener('click', scaleBigger);
   effects.addEventListener('change', effectChangeHandler);
   effects.addEventListener('change', effectChanger);
   hashtagInput.addEventListener('keydown', stopPropagation);
@@ -55,6 +57,8 @@ const hideUploadForm = () => {
   uploadFileControl.value = null;
   document.removeEventListener('keydown', onModalEscKeydown);
   uploadCancel.removeEventListener('click', hideUploadForm);
+  scaleControlSmaller.removeEventListener('click', scaleSmaller);
+  scaleControlBigger.removeEventListener('click', scaleBigger);
   effects.removeEventListener('change', effectChangeHandler);
   effects.removeEventListener('change', effectChanger);
   hashtagInput.removeEventListener('keydown', stopPropagation);

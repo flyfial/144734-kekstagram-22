@@ -2,7 +2,7 @@
 import {getGallery} from './api.js';
 import './big-pictures.js';
 import {setUploadFileControl} from './form-process.js';
-import {setDefaultClick, setRandomClick, setDiscussedClick} from './gallery-filter-handlers.js';
+import {TabName, activateTab} from './gallery-filter-handlers.js';
 import './img-filters.js';
 import './img-preview.js';
 import {displayGallery} from './pictures.js';
@@ -14,11 +14,11 @@ const RERENDER_DELAY = 500;
 
 getGallery((pictures) => {
   displayGallery(pictures);
-  setDefaultClick(_.debounce(
+  activateTab(TabName.DEFAULT, _.debounce(
     () => displayGallery(pictures),
     RERENDER_DELAY,
   ));
-  setRandomClick(_.debounce(
+  activateTab(TabName.RANDOM, _.debounce(
     () => {
       displayGallery(pictures
         .slice()
@@ -27,7 +27,7 @@ getGallery((pictures) => {
     },
     RERENDER_DELAY,
   ));
-  setDiscussedClick(_.debounce(
+  activateTab(TabName.DISCUSSED, _.debounce(
     () => {
       displayGallery(pictures
         .slice()
